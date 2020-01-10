@@ -20,6 +20,7 @@ from psycopg2 import Error
 class main():
 	file = str(input("provied the input file path...!"))
 	name,ext = os.path.splitext(file)
+	global name
 	global textformate
 
 	if ext == '.pdf':
@@ -71,7 +72,7 @@ class main():
 		except Exception as e:
 			print(e)
 
-	def getName(self):
+	def getName1(self):
 		global c1
 		regex = re.compile(r"([A-Z][a-z]+(?:[A-Za-z]\.)?)") #name=re.findall("([A-Za-z]{2,15})",textformate)
 		name = regex.findall(textformate)
@@ -190,29 +191,20 @@ class main():
 		skill=[i.capitalize() for i in set([i.lower() for i in skillset])]
 		#print(skill)
 
-	def getExperiance1(slef):
-		global experience
-		experience=[]
-		try:
-			for sentence in lines:
-				sen=" ".join([words[0].lower() for words in sentence])
-				if re.search('experience',sen):
-					sen_tokenised= nltk.word_tokenize(sen)
-					tagged = nltk.pos_tag(sen_tokenised)
-					entities = nltk.chunk.ne_chunk(tagged)
-					for subtree in entities.subtrees():
-						for leaf in subtree.leaves():
-							if leaf[1]=='CD':
-								experience=leaf[0]
-		except Exception as e:
-			#print(traceback.format_exc())
-			print(e) 
-			'''if experience:
-			text['experience'] = experience
-			else:
-				text['experience']=0'''
+	def getExperiance(slef):
+		global exp
+		exp = re.search('experience',textformate)
+		a = exp.span()
+		i = a[0]-1
+		j = 1000+a[0]
+		while i<=j:
+			i+=1
+			word = (stri[i])
+			print(word,end="")
+			exp = 
 
-	def getExperiance(self):
+
+	def getExperiance1(self):
 		global experience
 
 		wordnet_lemmatizer = WordNetLemmatizer()
@@ -257,7 +249,7 @@ class main():
 if __name__ == '__main__':
 	m = main()
 	m.Process()
-	m.getName()
+	#m.getName()
 	m.getMail()
 	m.getMobile()
 	m.getPersantage()
